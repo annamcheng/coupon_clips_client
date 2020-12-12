@@ -3,7 +3,7 @@ import React from "react";
 import "./App.css";
 import BarChart from "./components/BarChart";
 
-function App() {
+function App(props) {
   //State to hold our savings
   const [savings, setSavings] = React.useState([]);
   //State to hold formData
@@ -17,11 +17,11 @@ function App() {
   // Function to make api call to get savings
   const getSavings = async () => {
     const response = await fetch(
-      "https://couponclips-backend.herokuapp.com/vendors/vendors/" +
+      "https://couponclips-backend.herokuapp.com/vendors/" +
         createForm.vendor_id +
         "/savings"
     );
-    console.log(response)
+    console.log(response);
     const data = await response.json();
     setSavings(data);
   };
@@ -45,8 +45,9 @@ function App() {
               onClick={async () => {
                 await fetch(
                   "https://couponclips-backend.herokuapp.com/vendors/" +
-                  createForm.vendor_id +
-                    "/savings",
+                    createForm.vendor_id +
+                    "/savings/" +
+                    savings.id,
                   {
                     method: "delete",
                   }
@@ -71,13 +72,18 @@ function App() {
   const handleCreate = async (event) => {
     event.preventDefault(); //prevent page refresh
 
-    await fetch("https://couponclips-backend.herokuapp.com/vendors/" + createForm.vendor_id + "/savings", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(createForm),
-    });
+    await fetch(
+      "https://couponclips-backend.herokuapp.com/vendors/" +
+        createForm.vendor_id +
+        "/savings",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(createForm),
+      }
+    );
     getSavings();
     setCreateForm({
       original_cost: "",
@@ -128,7 +134,7 @@ function App() {
           onChange={createChange}
         />
         <br />
-        Vendor ID (1-5):{" "}
+        Vendor ID:{" "}
         <input
           type="text"
           name="vendor_id"
@@ -136,6 +142,14 @@ function App() {
           value={createForm.vendor_id}
           onChange={createChange}
         />
+        <br />
+        <i>See Vendor List below</i>
+        <br />
+        (1= Home Depot) <br />
+        (2= Bed Bath and Beyond) <br />
+        (3= Guitar Center) <br />
+        (4= Tory Burch) <br />
+        (5= Walgreens) <br />
         <br />
         <input type="submit" value="Create Savings" />
       </form>
