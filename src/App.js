@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+import logo from "./logo.svg";
 import React from "react";
-import './App.css';
-import BarChart from "./components/BarChart"
+import "./App.css";
+import BarChart from "./components/BarChart";
 
 function App() {
   //State to hold our savings
@@ -12,10 +12,16 @@ function App() {
     discount: "",
     savings_cost: "",
     month: "",
+    vendor_id: 1,
   });
   // Function to make api call to get savings
   const getSavings = async () => {
-    const response = await fetch("https://couponclips-backend.herokuapp.com/savings");
+    const response = await fetch(
+      "https://couponclips-backend.herokuapp.com/vendors/vendors/" +
+        createForm.vendor_id +
+        "/savings"
+    );
+    console.log(response)
     const data = await response.json();
     setSavings(data);
   };
@@ -28,18 +34,28 @@ function App() {
     <>
       {savings.map((saving) => {
         return (
-          <div>
+          <div key={saving.id}>
             <h4>Original Cost: ${saving.original_cost}</h4>
             <h4>Discount Amount: {saving.discount}</h4>
             <h4>Savings Cost: ${saving.savings_cost}</h4>
             <h4>Month: {saving.month}</h4>
+            <h4>Vendor ID (1-5): {saving.vendor_id}</h4>
 
-            <button onClick={async () => {
-              await fetch("https://couponclips-backend.herokuapp.com/savings" + saving.id, {
-                method: "delete"
-              })
-              getSavings()
-            }}>Delete</button>
+            <button
+              onClick={async () => {
+                await fetch(
+                  "https://couponclips-backend.herokuapp.com/vendors/" +
+                  createForm.vendor_id +
+                    "/savings",
+                  {
+                    method: "delete",
+                  }
+                );
+                getSavings();
+              }}
+            >
+              Delete
+            </button>
           </div>
         );
       })}
@@ -54,7 +70,8 @@ function App() {
   //our handle create function for when the form is submitted
   const handleCreate = async (event) => {
     event.preventDefault(); //prevent page refresh
-    await fetch("https://couponclips-backend.herokuapp.com/vendors", {
+
+    await fetch("https://couponclips-backend.herokuapp.com/vendors/" + createForm.vendor_id + "/savings", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -65,8 +82,9 @@ function App() {
     setCreateForm({
       original_cost: "",
       discount: "",
-      month: "",
       savings_cost: "",
+      month: "",
+      vendor_id: 1,
     });
   };
   return (
@@ -74,7 +92,8 @@ function App() {
       <BarChart />
       <h1>Create Coupon Savings</h1>
       <form onSubmit={handleCreate}>
-        Original Cost: $<input
+        Original Cost: $
+        <input
           type="text"
           name="original_cost"
           placeholder="XX.XX"
@@ -82,7 +101,8 @@ function App() {
           onChange={createChange}
         />
         <br />
-        Discount Amount: $<input
+        Discount Amount: $
+        <input
           type="text"
           name="discount"
           placeholder="XX.XX"
@@ -90,7 +110,8 @@ function App() {
           onChange={createChange}
         />
         <br />
-        Savings Cost: $<input
+        Savings Cost: $
+        <input
           type="text"
           name="savings_cost"
           placeholder="XX.XX"
@@ -98,7 +119,8 @@ function App() {
           onChange={createChange}
         />
         <br />
-        Month: <input
+        Month:{" "}
+        <input
           type="text"
           name="month"
           placeholder="month"
@@ -106,8 +128,16 @@ function App() {
           onChange={createChange}
         />
         <br />
+        Vendor ID (1-5):{" "}
+        <input
+          type="text"
+          name="vendor_id"
+          placeholder="Vendor ID #"
+          value={createForm.vendor_id}
+          onChange={createChange}
+        />
+        <br />
         <input type="submit" value="Create Savings" />
-        
       </form>
       <h1>List of Savings</h1>
       {savings.length > 0 ? loaded() : <h2>There are no savings</h2>}
@@ -115,4 +145,3 @@ function App() {
   );
 }
 export default App;
-
