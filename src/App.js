@@ -8,15 +8,14 @@ function App() {
   const [savings, setSavings] = React.useState([]);
   //State to hold formData
   const [createForm, setCreateForm] = React.useState({
-    name: "",
     original_cost: "",
     discount: "",
-    month: "",
     savings_cost: "",
+    month: "",
   });
   // Function to make api call to get savings
   const getSavings = async () => {
-    const response = await fetch("https://couponclips-backend.herokuapp.com/vendors");
+    const response = await fetch("https://couponclips-backend.herokuapp.com/savings");
     const data = await response.json();
     setSavings(data);
   };
@@ -30,14 +29,13 @@ function App() {
       {savings.map((saving) => {
         return (
           <div>
-            <h4>{saving.name}</h4>
-            <h4>{saving.original_cost}</h4>
-            <h4>{saving.discount}</h4>
-            <h4>{saving.savings_cost}</h4>
-            <h4>{saving.month}</h4>
+            <h4>Original Cost: ${saving.original_cost}</h4>
+            <h4>Discount Amount: {saving.discount}</h4>
+            <h4>Savings Cost: ${saving.savings_cost}</h4>
+            <h4>Month: {saving.month}</h4>
 
             <button onClick={async () => {
-              await fetch("https://couponclips-backend.herokuapp.com/vendors" + saving.id, {
+              await fetch("https://couponclips-backend.herokuapp.com/savings" + saving.id, {
                 method: "delete"
               })
               getSavings()
@@ -65,7 +63,6 @@ function App() {
     });
     getSavings();
     setCreateForm({
-      name: "",
       original_cost: "",
       discount: "",
       month: "",
@@ -77,42 +74,40 @@ function App() {
       <BarChart />
       <h1>Create Coupon Savings</h1>
       <form onSubmit={handleCreate}>
-        <input
-          type="text"
-          name="name"
-          placeholder="vendor name"
-          value={createForm.name}
-          onChange={createChange}
-        />
-        <input
+        Original Cost: $<input
           type="text"
           name="original_cost"
-          placeholder="original cost (XX.XX)"
+          placeholder="XX.XX"
           value={createForm.original_cost}
           onChange={createChange}
         />
-        <input
+        <br />
+        Discount Amount: $<input
           type="text"
           name="discount"
-          placeholder="discount amount"
+          placeholder="XX.XX"
           value={createForm.discount}
           onChange={createChange}
         />
-        <input
+        <br />
+        Savings Cost: $<input
           type="text"
           name="savings_cost"
-          placeholder="savings cost (XX.XX)"
+          placeholder="XX.XX"
           value={createForm.savings_cost}
           onChange={createChange}
         />
-        <input
+        <br />
+        Month: <input
           type="text"
           name="month"
           placeholder="month"
           value={createForm.month}
           onChange={createChange}
         />
+        <br />
         <input type="submit" value="Create Savings" />
+        
       </form>
       <h1>List of Savings</h1>
       {savings.length > 0 ? loaded() : <h2>There are no savings</h2>}

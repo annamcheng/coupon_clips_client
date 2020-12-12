@@ -39,7 +39,7 @@ const BarChart = (props) => {
 
     const getSavings = async () => {
         //run this function when content loads on page
-        const response = await fetch("http://localhost:3000/vendors");
+        const response = await fetch("https://couponclips-backend.herokuapp.com/vendors");
         const data = await response.json();
         console.log(data);
         const chartData = await prepareData(data);
