@@ -16,7 +16,7 @@ function App() {
   });
   // Function to make api call to get savings
   const getSavings = async () => {
-    const response = await fetch("http://localhost:3000/vendors");
+    const response = await fetch("https://couponclips-backend.herokuapp.com/vendors");
     const data = await response.json();
     setSavings(data);
   };
@@ -37,7 +37,7 @@ function App() {
             <h4>{saving.month}</h4>
 
             <button onClick={async () => {
-              await fetch("http://localhost:3000/vendors/" + saving.id, {
+              await fetch("https://couponclips-backend.herokuapp.com/vendors" + saving.id, {
                 method: "delete"
               })
               getSavings()
@@ -56,7 +56,7 @@ function App() {
   //our handle create function for when the form is submitted
   const handleCreate = async (event) => {
     event.preventDefault(); //prevent page refresh
-    await fetch("http://localhost:3000/vendors", {
+    await fetch("https://couponclips-backend.herokuapp.com/vendors", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function App() {
       <form onSubmit={handleCreate}>
         <input
           type="text"
-          name="vendor"
+          name="name"
           placeholder="vendor name"
           value={createForm.name}
           onChange={createChange}
