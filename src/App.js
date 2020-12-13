@@ -45,6 +45,26 @@ function App(props) {
               onClick={async () => {
                 await fetch(
                   "https://couponclips-backend.herokuapp.com/vendors/" +
+                  createForm.vendor_id +
+                  "/savings/" +
+                  saving.id,
+                  {
+                    method: "put",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(FormData),
+                  }
+                );
+                getSavings();
+              }}
+            >
+              Edit
+            </button>
+            <button
+              onClick={async () => {
+                await fetch(
+                  "https://couponclips-backend.herokuapp.com/vendors/" +
                     createForm.vendor_id +
                     "/savings/" +
                     saving.id,

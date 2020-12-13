@@ -3,7 +3,6 @@ import Chart from "chart.js";
 
 const BarChart = (props) => {
     const prepareData = (data) => {
-        console.log("anna", data)
         //Empty Chart Data Object
         const chartData = {
             labels: [],
@@ -35,12 +34,12 @@ const BarChart = (props) => {
         const savingsChart = new Chart(ctx, {
             type: "bar",
             data: data,
-        });
+        })
     };
 
     const getSavings = async () => {
         //run this function when content loads on page
-        const response = await fetch("https://couponclips-backend.herokuapp.com/vendors/1/savings");
+        const response = await fetch("https://couponclips-backend.herokuapp.com/vendors/3/savings");
         const data = await response.json();
         console.log(data);
         const chartData = await prepareData(data);
