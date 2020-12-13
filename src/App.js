@@ -128,7 +128,7 @@ function App(props) {
           onChange={createChange}
         />
         <br />
-        Discount Amount: $
+        Discount Amount: 
         <input
           type="text"
           name="discount"
