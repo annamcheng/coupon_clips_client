@@ -47,7 +47,7 @@ function App(props) {
                   "https://couponclips-backend.herokuapp.com/vendors/" +
                     createForm.vendor_id +
                     "/savings/" +
-                    savings.id,
+                    saving.id,
                   {
                     method: "delete",
                   }
@@ -143,7 +143,7 @@ function App(props) {
           onChange={createChange}
         />
         <br />
-        <i>See Vendor List below</i>
+        <i>See Vendor List</i>
         <br />
         (1= Home Depot) <br />
         (2= Bed Bath and Beyond) <br />
