@@ -3,10 +3,35 @@ body {
   font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F2FCFF;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button,
+#button {
+  margin: 2px;
+  padding: 5px;
+  text-transform: uppercase;
+  background-color: rgb(255, 242, 232);
+  border-radius: 10px;
+}
+input {
+  margin: 1px;
+  border-radius: 5px;
+}
+
+#vendorNames {
+  color: rgb(181, 86, 86);
+}
+
+#list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 50px;
+  padding-left: 100px;
+  background-color: rgb(255, 182, 193, 0.1);
+  border-radius: 50px;
 }

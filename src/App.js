@@ -45,9 +45,9 @@ function App(props) {
               onClick={async () => {
                 await fetch(
                   "https://couponclips-backend.herokuapp.com/vendors/" +
-                  createForm.vendor_id +
-                  "/savings/" +
-                  saving.id,
+                    createForm.vendor_id +
+                    "/savings/" +
+                    saving.id,
                   {
                     method: "put",
                     headers: {
@@ -116,6 +116,7 @@ function App(props) {
   return (
     <div className="App">
       <BarChart />
+      <hr />
       <h1>Create Coupon Savings</h1>
       <form onSubmit={handleCreate}>
         Original Cost: $
@@ -165,16 +166,20 @@ function App(props) {
         <br />
         <i>See Vendor List</i>
         <br />
-        (1= Home Depot) <br />
-        (2= Bed Bath and Beyond) <br />
-        (3= Guitar Center) <br />
-        (4= Tory Burch) <br />
-        (5= Walgreens) <br />
+        <div id="vendorNames">
+          (1= Home Depot) <br />
+          (2= Bed Bath and Beyond) <br />
+          (3= Guitar Center) <br />
+          (4= Tory Burch) <br />
+          (5= Walgreens) <br />
+        </div>
         <br />
-        <input type="submit" value="Create Savings" />
+        <input type="submit" id="button" value="Create Savings" />
       </form>
       <h1>List of Savings</h1>
-      {savings.length > 0 ? loaded() : <h2>There are no savings</h2>}
+      <div id="list">
+        {savings.length > 0 ? loaded() : <h2>There are no savings</h2>}
+      </div>
     </div>
   );
 }
