@@ -35,8 +35,9 @@ input {
 #list {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 50px;
+  margin: 50px;
   padding-left: 100px;
+  padding-bottom: 10px;
   background-color: rgba(255, 215, 167, 0.817);
   border-radius: 50px;
 }
