@@ -5,17 +5,23 @@ const BarChart = (props) => {
     const prepareData = (data) => {
         //Empty Chart Data Object
         const chartData = {
-            labels: [],
-            datasets: [
-                {
-                    label: "Original Costs",
-                    data: [],
-                },
-                {
-                    label: "Savings",
-                    data: [],
-                },
-            ],
+          labels: [],
+          datasets: [
+            {
+              label: "Original Costs",
+              data: [],
+              backgroundColor: "rgba(54,162,235,0.6)",
+              borderWidth: 1,
+              borderColor: "#777",
+            },
+            {
+              label: "Savings",
+              data: [],
+              backgroundColor: "rgba(255,99,132,0.6)",
+              borderWidth: 1,
+              borderColor: "#777",
+            },
+          ],
         };
         //Loop over API data to populate chart data
         data.forEach((saving) => {
