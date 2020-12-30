@@ -115,7 +115,7 @@ function App(props) {
   };
   return (
     <div className="App">
-      <BarChart />
+      <BarChart vendor_id={createForm.vendor_id} length={savings.length}/>
       <hr />
       <h1>Create Coupon Savings</h1>
       <form onSubmit={handleCreate}>
